@@ -1,11 +1,11 @@
-Nchsdb-data-dictionary Data Dictionary
+NCHSDB Data Dictionary
 ======================
 
-[![Build Status](https://travis-ci.com/<REPOSITORY>/nchsdb-data-dictionary-data-dictionary.svg?branch=master)](https://travis-ci.com/<REPOSITORY>/nchsdb-data-dictionary-data-dictionary)
+[![Build Status](https://travis-ci.com/nsrr/nchsdb-data-dictionary.svg?branch=master)](https://travis-ci.com/nsrr/nchsdb-data-dictionary)
 
 ### Exports
 
-The nchsdb-data-dictionary data dictionary can be exported to CSV by typing:
+The nchsdb data dictionary can be exported to CSV by typing:
 
 ```
 spout export
@@ -43,4 +43,4 @@ approach for changing version numbers uses a variation on
 [Semantic Versioning](http://semver.org).
 
 A full list of changes for each version can be viewed in the
-[CHANGELOG](https://github.com/<REPOSITORY>/nchsdb-data-dictionary-data-dictionary/blob/master/CHANGELOG.md).
+[CHANGELOG](https://github.com/nsrr/nchsdb-data-dictionary/blob/master/CHANGELOG.md).

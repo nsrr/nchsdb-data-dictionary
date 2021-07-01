@@ -1,3 +1,8 @@
-slug: nchsdb-data-dictionary
+slug: nchsdb
 visit: visit
 charts: []
+webservers:
+  - name: production
+    url: https://sleepdata.org
+  - name: staging
+    url: https://staging.partners.org/sleepdata.org
