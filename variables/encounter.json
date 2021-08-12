@@ -1,0 +1,7 @@
+{
+  "id": "encounter",
+  "display_name": "Encounter number",
+  "description": "",
+  "type": "choices",
+  "domain": "encounter"
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "value": "F",
+    "display_name": "Female",
+    "description": ""
+  },
+  {
+    "value": "M",
+    "display_name": "Male",
+    "description": ""
+  },
+  {
+    "value": "UN",
+    "display_name": "Unknown",
+    "description": ""
+  }
+]

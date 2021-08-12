@@ -1,0 +1,6 @@
+{
+  "id": "birth_date",
+  "display_name": "Shifted date of birth",
+  "description": "",
+  "type": "date"
+}

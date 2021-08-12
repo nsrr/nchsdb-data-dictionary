@@ -1,0 +1,6 @@
+{
+  "id": "gender_descr",
+  "display_name": "Patient gender (text)",
+  "description": "",
+  "type": "text"
+}

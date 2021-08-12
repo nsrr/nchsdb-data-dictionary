@@ -1,0 +1,7 @@
+{
+  "id": "peds_gest_age_num_weeks",
+  "display_name": "Patient's gestational age truncated to the nearest full week (when available)",
+  "description": "",
+  "type": "integer",
+  "unit": "weeks"
+}

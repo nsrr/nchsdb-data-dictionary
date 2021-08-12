@@ -1,0 +1,7 @@
+{
+  "id": "pcori_gender_cd",
+  "display_name": "Patient gender",
+  "description": "",
+  "type": "choices",
+  "domain": "pcori_gender"
+}

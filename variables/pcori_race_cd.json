@@ -1,0 +1,7 @@
+{
+  "id": "pcori_race_cd",
+  "display_name": "Patient race",
+  "description": "",
+  "type": "choices",
+  "domain": "pcori_race"
+}

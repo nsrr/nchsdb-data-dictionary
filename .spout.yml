@@ -1,5 +1,5 @@
 slug: nchsdb
-visit: visit
+visit: encounter
 charts: []
 webservers:
   - name: production

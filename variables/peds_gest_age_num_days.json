@@ -1,0 +1,7 @@
+{
+  "id": "peds_gest_age_num_days",
+  "display_name": "Patient's gestational age in days (when available)",
+  "description": "",
+  "type": "integer",
+  "unit": "days"
+}

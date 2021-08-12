@@ -1,0 +1,6 @@
+{
+  "id": "race_descr",
+  "display_name": "Patient race (text)",
+  "description": "",
+  "type": "text"
+}

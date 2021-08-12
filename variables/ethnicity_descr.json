@@ -1,0 +1,6 @@
+{
+  "id": "ethnicity_descr",
+  "display_name": "Patient ethnicity (text)",
+  "description": "",
+  "type": "text"
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "value": "N",
+    "display_name": "No",
+    "description": ""
+  },
+  {
+    "value": "Y",
+    "display_name": "Yes",
+    "description": ""
+  },
+  {
+    "value": "NI",
+    "display_name": "No information",
+    "description": ""
+  },
+  {
+    "value": "UN",
+    "display_name": "Unknown",
+    "description": ""
+  }
+]
