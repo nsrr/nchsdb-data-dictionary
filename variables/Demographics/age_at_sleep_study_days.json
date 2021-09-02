@@ -1,0 +1,7 @@
+{
+  "id": "age_at_sleep_study_days",
+  "display_name": "The age of the patient in days at the time of the sleep study",
+  "description": "",
+  "type": "integer",
+  "units": "days"
+}

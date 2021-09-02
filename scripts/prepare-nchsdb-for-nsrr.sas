@@ -41,11 +41,108 @@
     set demographic_in;
   run;
 
-  data nchsdb_nsrr;
-    set demographic;
-
-    VISIT = 1;
+  proc sort data=demographic;
+    by STUDY_PAT_ID;
   run;
+
+  proc import datafile="\\rfawin\BWH-SLEEPEPI-NSRR-STAGING\20210809-nchsdb\nsrr-prep\_source\SLEEP_STUDY.CSV"
+    out=sleep_study_in
+    dbms=csv
+    replace;
+    guessingrows=1000;
+  run;
+
+  data sleep_study;
+    set sleep_study_in;
+
+    keep
+      STUDY_PAT_ID
+      AGE_AT_SLEEP_STUDY_DAYS
+      ;
+  run;
+
+  proc sort data=sleep_study;
+    by STUDY_PAT_ID AGE_AT_SLEEP_STUDY_DAYS;
+  run;
+
+  proc sort data=sleep_study nodupkey;
+    by STUDY_PAT_ID;
+  run;
+
+  /*
+
+  proc freq data=demographic;
+    table pcori_hispanic_cd;
+  run;
+
+  */
+
+  data nchsdb_nsrr;
+    merge
+      demographic
+      sleep_study
+      ;
+    by study_pat_id;
+
+    *create encounter variable for Spout to use for graph generation;
+    encounter = 1;
+
+    *create biodatacatlyst harmonized terms;
+    *age_at_index;
+    format nsrr_age 8.2;
+    nsrr_age = age_at_sleep_study_days / 365.25; 
+
+    *sex;
+    format nsrr_sex $10.;
+    if pcori_gender_cd = 'F' then nsrr_sex = 'female';
+    else if pcori_gender_cd = 'M' then nsrr_sex = 'male';
+    else if pcori_gender_cd = 'UN' then nsrr_sex = 'unknown';
+
+    *race;
+    format nsrr_race $100.;
+    if pcori_race_cd = '01' then nsrr_race = 'american indian or alaska native';
+    else if pcori_race_cd = '02' then nsrr_race = 'asian';
+    else if pcori_race_cd = '03' then nsrr_race = 'black or african american';
+    else if pcori_race_cd = '04' then nsrr_race = 'native hawaiian or other pacific islander'; 
+    else if pcori_race_cd = '05' then nsrr_race = 'white';
+    else if pcori_race_cd = '06' then nsrr_race = 'multiple';
+    else if pcori_race_cd = '07' then nsrr_race = 'not reported';
+    else if pcori_race_cd = 'UN' then nsrr_race = 'Unknown';
+
+    *ethnicity;
+    if pcori_hispanic_cd = 'N' then nsrr_ethnicity = 'not hispanic or latino';
+    else if pcori_hispanic_cd = 'Y' then nsrr_ethnicity = 'hispanic or latino';
+    else if pcori_hispanic_cd = 'NI' then nsrr_ethnicity = 'not reported';
+    else if pcori_hispanic_cd = 'UN' then nsrr_ethnicity = 'Unknown';
+  run;
+
+  /*
+
+  proc freq data=nchsdb_nsrr;
+    table nsrr_ethnicity;
+  run;
+
+  */
+
+*******************************************************************************;
+* make all variable names lowercase ;
+*******************************************************************************;
+  options mprint;
+  %macro lowcase(dsn);
+       %let dsid=%sysfunc(open(&dsn));
+       %let num=%sysfunc(attrn(&dsid,nvars));
+       %put &num;
+       data &dsn;
+             set &dsn(rename=(
+          %do i = 1 %to &num;
+          %let var&i=%sysfunc(varname(&dsid,&i));    /*function of varname returns the name of a SAS data set variable*/
+          &&var&i=%sysfunc(lowcase(&&var&i))         /*rename all variables*/
+          %end;));
+          %let close=%sysfunc(close(&dsid));
+    run;
+  %mend lowcase;
+
+  %lowcase(nchsdb_nsrr);
 
   /*
 

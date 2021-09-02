@@ -1,6 +1,12 @@
 slug: nchsdb
 visit: encounter
-charts: []
+charts:
+- chart: nsrr_sex
+  title: Sex
+- chart: nsrr_race
+  title: Race
+- chart: nsrr_ethnicity
+  title: Ethnicity
 webservers:
   - name: production
     url: https://sleepdata.org

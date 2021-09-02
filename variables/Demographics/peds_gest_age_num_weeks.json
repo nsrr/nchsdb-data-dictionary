@@ -3,5 +3,5 @@
   "display_name": "Patient's gestational age truncated to the nearest full week (when available)",
   "description": "",
   "type": "integer",
-  "unit": "weeks"
+  "units": "weeks"
 }

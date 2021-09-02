@@ -2,5 +2,6 @@
   "id": "study_pat_id",
   "display_name": "NCHSDB Subject ID",
   "description": "A pseudo identifier with a consistent crosswalk to the true identifier retained by the source Data Partner. For analytical data sets requiring patient-level data, only the pseudo identifier is used to link across all information belonging to a patient.",
-  "type": "identifier"
+  "type": "identifier",
+  "commonly_used": true
 }

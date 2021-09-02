@@ -3,5 +3,5 @@
   "display_name": "Patient's gestational age in days (when available)",
   "description": "",
   "type": "integer",
-  "unit": "days"
+  "units": "days"
 }
