@@ -86,19 +86,33 @@
 
     *create encounter variable for Spout to use for graph generation;
     encounter = 1;
+  run;
 
-    *create biodatacatlyst harmonized terms;
-    *age_at_index;
+  data nchsdb_nsrr_harmonized;
+    merge
+      demographic
+      sleep_study
+      ;
+    by study_pat_id;
+
+    *create encounter variable for Spout to use for graph generation;
+    encounter = 1;
+
+    *create topmed/biodatacatlyst harmonized terms;
+    *age;
+    *use age_at_sleep_study_days and divide by 365.25;
     format nsrr_age 8.2;
     nsrr_age = age_at_sleep_study_days / 365.25; 
 
     *sex;
+    *use pcori_gender_cd;
     format nsrr_sex $10.;
     if pcori_gender_cd = 'F' then nsrr_sex = 'female';
     else if pcori_gender_cd = 'M' then nsrr_sex = 'male';
     else if pcori_gender_cd = 'UN' then nsrr_sex = 'unknown';
 
     *race;
+    *use pcori_race_cd;
     format nsrr_race $100.;
     if pcori_race_cd = '01' then nsrr_race = 'american indian or alaska native';
     else if pcori_race_cd = '02' then nsrr_race = 'asian';
@@ -110,10 +124,17 @@
     else if pcori_race_cd = 'UN' then nsrr_race = 'Unknown';
 
     *ethnicity;
+    *use pcori_hispanic_cd;
     if pcori_hispanic_cd = 'N' then nsrr_ethnicity = 'not hispanic or latino';
     else if pcori_hispanic_cd = 'Y' then nsrr_ethnicity = 'hispanic or latino';
     else if pcori_hispanic_cd = 'NI' then nsrr_ethnicity = 'not reported';
     else if pcori_hispanic_cd = 'UN' then nsrr_ethnicity = 'Unknown';
+
+    keep
+      study_pat_id
+      encounter
+      nsrr_age -- nsrr_ethnicity
+      ;
   run;
 
   /*
@@ -143,6 +164,7 @@
   %mend lowcase;
 
   %lowcase(nchsdb_nsrr);
+  %lowcase(nchsdb_nsrr_harmonized);
 
   /*
 
@@ -158,11 +180,21 @@
     set nchsdb_nsrr;
   run;
 
+  data nchsdbd.nchsdb_nsrr_harmonized nchsdba.nchsdb_nsrr_harmonized_&sasfiledate;
+    set nchsdb_nsrr_harmonized;
+  run;
+
 *******************************************************************************;
 * export nsrr csv datasets ;
 *******************************************************************************;
   proc export data=nchsdb_nsrr
     outfile="&releasepath\&version\nchsdb-dataset-&version..csv"
+    dbms=csv
+    replace;
+  run;
+
+  proc export data=nchsdb_nsrr_harmonized
+    outfile="&releasepath\&version\nchsdb-dataset-harmonized-&version..csv"
     dbms=csv
     replace;
   run;
