@@ -28,7 +28,7 @@
   %let releasepath = \\rfawin\BWH-SLEEPEPI-NSRR-STAGING\20210809-nchsdb\nsrr-prep\_releases;
 
 *******************************************************************************;
-* create datasets ;
+* create core dataset ;
 *******************************************************************************;
   proc import datafile="\\rfawin\BWH-SLEEPEPI-NSRR-STAGING\20210809-nchsdb\nsrr-prep\_source\DEMOGRAPHIC.csv"
     out=demographic_in
@@ -87,6 +87,10 @@
     *create encounter variable for Spout to use for graph generation;
     encounter = 1;
   run;
+
+*******************************************************************************;
+* create harmonized dataset ;
+*******************************************************************************;
 
   data nchsdb_nsrr_harmonized;
     merge
