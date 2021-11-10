@@ -240,6 +240,7 @@ run;
 
 proc print data=measurement_bp_sleep(obs=10) label;
 run;
+
 */
 
 *only keep first row of each individual after sort;
@@ -314,6 +315,8 @@ run;
     *create encounter variable for Spout to use for graph generation;
     encounter = 1;
   run;
+
+
 
 *******************************************************************************;
 * create harmonized dataset ;
@@ -417,8 +420,8 @@ run;
 proc means data=nchsdb_harmonized;
 VAR   nsrr_age
       nsrr_bmi
- 	  nsrr_systolic
-	  nsrr_diastolic;
+ 	  nsrr_bp_systolic
+	  nsrr_bp_diastolic;
 run;
 
 /* Checking categorical variables */
@@ -433,6 +436,10 @@ run;
 
 /* checking
 proc print data=nchsdb_harmonized(obs=10) label;
+run;
+
+proc print data=nchsdb_harmonized(obs=10) label;
+  where nsrr_bp_systolic = .;
 run;
 */
 
