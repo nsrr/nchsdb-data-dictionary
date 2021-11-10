@@ -1,0 +1,7 @@
+{
+  "id": "bmi",
+  "display_name": "Body mass index (BMI)",
+  "description": "",
+  "type": "numeric",
+  "commonly_used": true
+}

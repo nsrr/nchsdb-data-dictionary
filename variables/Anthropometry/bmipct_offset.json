@@ -1,0 +1,8 @@
+{
+  "id": "bmipct_offset",
+  "display_name": "Difference between date of body mass index (BMI) percentile measurement and sleep test",
+  "description": "",
+  "type": "numeric",
+  "units": "days",
+  "commonly_used": true
+}

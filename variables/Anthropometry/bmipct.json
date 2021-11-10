@@ -1,0 +1,7 @@
+{
+  "id": "bmipct",
+  "display_name": "Body mass index (BMI) percentile",
+  "description": "",
+  "type": "numeric",
+  "commonly_used": true
+}

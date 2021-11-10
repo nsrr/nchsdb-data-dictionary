@@ -1,0 +1,8 @@
+{
+  "id": "bp_diastolic",
+  "display_name": "Single measure of seated diastolic blood pressure closest to the sleep test",
+  "description": "",
+  "type": "numeric",
+  "units": "millimeters of mercury",
+  "commonly_used": true
+}

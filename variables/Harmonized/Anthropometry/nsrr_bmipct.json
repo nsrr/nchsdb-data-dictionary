@@ -1,0 +1,11 @@
+{
+  "id": "nsrr_bmipct",
+  "display_name": "Body mass index (BMI) percentile",
+  "description": "Harmonized by the NSRR team to align with <a href=\"https://github.com/UW-GAC/topmed-dcc-harmonized-phenotypes\" target=\"_blank\">TOPMed</a> and <a href=\"https://github.com/uc-cdis/gtex-dictionary/tree/master/gdcdictionary/schemas/\" target=\"_blank\">BioDataCatalyst standards</a>. Source: :bmipct:",
+  "type": "numeric",
+  "units": "percent",
+  "labels": [
+    "bmi_baseline_1"
+  ],
+  "commonly_used": true
+}
