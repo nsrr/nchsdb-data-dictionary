@@ -1,12 +1,12 @@
 [
   {
-    "value": "american indian or alaska native",
-    "display_name": "american indian or alaska native",
+    "value": "white",
+    "display_name": "white",
     "description": ""
   },
   {
-    "value": "asian",
-    "display_name": "asian",
+    "value": "american indian or alaska native",
+    "display_name": "american indian or alaska native",
     "description": ""
   },
   {
@@ -15,8 +15,8 @@
     "description": ""
   },
   {
-    "value": "multiple",
-    "display_name": "multiple",
+    "value": "asian",
+    "display_name": "asian",
     "description": ""
   },
   {
@@ -25,8 +25,18 @@
     "description": ""
   },
   {
-    "value": "white",
-    "display_name": "white",
+    "value": "multiple",
+    "display_name": "multiple",
+    "description": ""
+  },
+  {
+    "value": "other",
+    "display_name": "other",
+    "description": ""
+  },
+  {
+    "value": "unknown",
+    "display_name": "unknown",
     "description": ""
   },
   {
@@ -35,8 +45,8 @@
     "description": ""
   },
   {
-    "value": "unknown",
-    "display_name": "unknown",
+    "value": "not allowed to collect",
+    "display_name": "not allowed to collect",
     "description": ""
   }
 ]
