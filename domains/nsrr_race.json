@@ -25,6 +25,11 @@
     "description": ""
   },
   {
+    "value": "hispanic",
+    "display_name": "hispanic",
+    "description": ""
+  },
+  {
     "value": "multiple",
     "display_name": "multiple",
     "description": ""
@@ -35,8 +40,8 @@
     "description": ""
   },
   {
-    "value": "unknown",
-    "display_name": "unknown",
+    "value": "Unknown",
+    "display_name": "Unknown",
     "description": ""
   },
   {
