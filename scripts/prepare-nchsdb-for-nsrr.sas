@@ -137,8 +137,8 @@
 *seperate bp bp_diastolic and bp_systolic;
 data measurement_bp_sep;
 set measurement_bp;
-	bp_systolic = scan(BP,1,'/');
-	bp_diastolic = scan(BP,2,'/');
+  bp_systolic = scan(BP,1,'/');
+  bp_diastolic = scan(BP,2,'/');
 run;
 
 /* checking
@@ -155,18 +155,20 @@ run;
       ;
     by STUDY_PAT_ID;
 *compute the day offset between sleep study date and date of measurement;
-bmi_offset_sec = abs(MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME);
+bmi_offset_sort = abs(MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME);
+bmi_offset_sec = MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME;
 bmi_offset_min = bmi_offset_sec/60;
 bmi_offset_hour = bmi_offset_min/60;
 bmi_offset_days = bmi_offset_hour/24;
 bmi_offset = bmi_offset_days;
-	keep
+  keep
       STUDY_PAT_ID
       BMI
-	  MEAS_RECORDED_DATETIME
-	  SLEEP_STUDY_START_DATETIME
-	  MEAS_SOURCE
-	  bmi_offset
+    MEAS_RECORDED_DATETIME
+    SLEEP_STUDY_START_DATETIME
+    MEAS_SOURCE
+    bmi_offset_sort
+    bmi_offset
       ;
   run;
 
@@ -177,18 +179,20 @@ data measurement_bmipct_sleep;
       sleep_study_in
       ;
     by STUDY_PAT_ID;
-bmipct_offset_sec = abs(MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME);
+bmipct_offset_sort = abs(MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME);
+bmipct_offset_sec = MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME;
 bmipct_offset_min = bmipct_offset_sec/60;
 bmipct_offset_hour = bmipct_offset_min/60;
 bmipct_offset_days = bmipct_offset_hour/24;
 bmipct_offset = bmipct_offset_days;
-	keep
+  keep
       STUDY_PAT_ID
       BMIPCT
-	  MEAS_RECORDED_DATETIME
-	  SLEEP_STUDY_START_DATETIME
-	  MEAS_SOURCE
-	  bmipct_offset
+    MEAS_RECORDED_DATETIME
+    SLEEP_STUDY_START_DATETIME
+    MEAS_SOURCE
+    bmipct_offset_sort
+    bmipct_offset
       ;
   run;
 
@@ -199,36 +203,38 @@ data measurement_bp_sleep;
       sleep_study_in
       ;
     by STUDY_PAT_ID;
-bp_offset_sec = abs(MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME);
+bp_offset_sort = abs(MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME);
+bp_offset_sec = MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME;
 bp_offset_min = bp_offset_sec/60;
 bp_offset_hour = bp_offset_min/60;
 bp_offset_days = bp_offset_hour/24;
 bp_offset = bp_offset_days;
-	keep
+  keep
       STUDY_PAT_ID
       bp_systolic
-	  bp_diastolic
-	  MEAS_RECORDED_DATETIME
-	  SLEEP_STUDY_START_DATETIME
-	  MEAS_SOURCE
-	  bp_offset
+    bp_diastolic
+    MEAS_RECORDED_DATETIME
+    SLEEP_STUDY_START_DATETIME
+    MEAS_SOURCE
+    bp_offset_sort
+    bp_offset
       ;
   run;
-	
+  
 *sort to select measure for each individual with smallest date offset from sleep study date;
 *bmi;
   proc sort data=measurement_bmi_sleep;
-    by STUDY_PAT_ID bmi_offset;
+    by STUDY_PAT_ID bmi_offset_sort;
   run;
 
 *bmipct;
   proc sort data=measurement_bmipct_sleep;
-    by STUDY_PAT_ID bmipct_offset;
+    by STUDY_PAT_ID bmipct_offset_sort;
   run;
 
  *bp;
   proc sort data=measurement_bp_sleep;
-    by STUDY_PAT_ID bp_offset;
+    by STUDY_PAT_ID bp_offset_sort;
   run;
 
 /* checking
@@ -248,22 +254,25 @@ run;
 *bmi;
 data measurement_bmi_sleep_subset;
 set measurement_bmi_sleep;
-	by STUDY_PAT_ID;
-	if first.STUDY_PAT_ID then output;
+  by STUDY_PAT_ID;
+  if first.STUDY_PAT_ID then output;
+  drop bmi_offset_sort;
 run;
 
 *bmipct;
 data measurement_bmipct_sleep_subset;
 set measurement_bmipct_sleep;
-	by STUDY_PAT_ID;
-	if first.STUDY_PAT_ID then output;
+  by STUDY_PAT_ID;
+  if first.STUDY_PAT_ID then output;
+  drop bmipct_offset_sort;
 run;
 
 *bp;
 data measurement_bp_sleep_subset;
 set measurement_bp_sleep;
-	by STUDY_PAT_ID;
-	if first.STUDY_PAT_ID then output;
+  by STUDY_PAT_ID;
+  if first.STUDY_PAT_ID then output;
+  drop bp_offset_sort;
 run;
 
 /* checking
@@ -283,20 +292,20 @@ run;
 *keeping MEAS_SOURCE in- may remove later; 
 data measurement_new;
 merge measurement_bmi_sleep_subset
-	  measurement_bmipct_sleep_subset
-	  measurement_bp_sleep_subset
-	  ;
+    measurement_bmipct_sleep_subset
+    measurement_bp_sleep_subset
+    ;
 by STUDY_PAT_ID;
 keep
-	STUDY_PAT_ID
-	BMI
-	bmi_offset
-	BMIPCT
-	bmipct_offset
-	bp_systolic
-	bp_diastolic
-	bp_offset
-	;
+  STUDY_PAT_ID
+  BMI
+  bmi_offset
+  BMIPCT
+  bmipct_offset
+  bp_systolic
+  bp_diastolic
+  bp_offset
+  ;
 run;
 
 /*
@@ -309,7 +318,7 @@ run;
     merge
       demographic
       sleep_study
-	  measurement_new;
+    measurement_new;
       ;
     by study_pat_id;
     *create encounter variable for Spout to use for graph generation;
@@ -326,7 +335,7 @@ run;
     merge
       demographic
       sleep_study
-	  measurement_new
+    measurement_new
       ;
     by STUDY_PAT_ID;
 
@@ -339,13 +348,13 @@ run;
     format nsrr_age 8.2;
     nsrr_age = age_at_sleep_study_days / 365.25; 
 
-	*age_gt89;
-	*use age_at_sleep_study_days;
-  	format nsrr_age_gt89 $10.; 
-  	if age_at_sleep_study_days / 365.25 gt 89 then nsrr_age_gt89='yes';
- 	else if age_at_sleep_study_days / 365.25 le 89 then nsrr_age_gt89='no';
+  *age_gt89;
+  *use age_at_sleep_study_days;
+    format nsrr_age_gt89 $10.; 
+    if age_at_sleep_study_days / 365.25 gt 89 then nsrr_age_gt89='yes';
+  else if age_at_sleep_study_days / 365.25 le 89 then nsrr_age_gt89='no';
 
-	*sex;
+  *sex;
     *use pcori_gender_cd;
     format nsrr_sex $10.;
     if pcori_gender_cd = 'F' then nsrr_sex = 'female';
@@ -366,48 +375,48 @@ run;
 
     *ethnicity;
     *use pcori_hispanic_cd;
-	format nsrr_ethnicity $100.;
+  format nsrr_ethnicity $100.;
     if pcori_hispanic_cd = 'N' then nsrr_ethnicity = 'not hispanic or latino';
     else if pcori_hispanic_cd = 'Y' then nsrr_ethnicity = 'hispanic or latino';
     else if pcori_hispanic_cd = 'NI' then nsrr_ethnicity = 'not reported';
     else if pcori_hispanic_cd = 'UN' then nsrr_ethnicity = 'unknown';
 
-	*anthropometry
-	*bmi;
-	*use BMI;
-  	format nsrr_bmi 10.9;
-  	nsrr_bmi = BMI;
-	
-	*bmipct;
-	*use BMIPCT;
-	format nsrr_bmipct 10.9;
-  	nsrr_bmipct = BMIPCT;
+  *anthropometry
+  *bmi;
+  *use BMI;
+    format nsrr_bmi 10.9;
+    nsrr_bmi = BMI;
+  
+  *bmipct;
+  *use BMIPCT;
+  format nsrr_bmipct 10.9;
+    nsrr_bmipct = BMIPCT;
 
 *clinical data/vital signs
 *bp_systolic;
 *use bp_systolic;
-	format nsrr_bp_systolic 10.9;
-  	nsrr_bp_systolic = bp_systolic;
+  format nsrr_bp_systolic 10.9;
+    nsrr_bp_systolic = bp_systolic;
 
 *bp_diastolic;
 *use bp_diastolic;
-	format nsrr_bp_diastolic 10.9;
-  	nsrr_bp_diastolic = bp_diastolic;
-	
+  format nsrr_bp_diastolic 10.9;
+    nsrr_bp_diastolic = bp_diastolic;
+  
 *lifestyle and behavioral health
 *none;
     keep
       study_pat_id
       encounter
       nsrr_age 
-	  nsrr_age_gt89
-	  nsrr_sex 
+    nsrr_age_gt89
+    nsrr_sex 
       nsrr_ethnicity
-	  nsrr_race
-	  nsrr_bmi
-	  nsrr_bmipct
-	  nsrr_bp_systolic
-	  nsrr_bp_diastolic
+    nsrr_race
+    nsrr_bmi
+    nsrr_bmipct
+    nsrr_bp_systolic
+    nsrr_bp_diastolic
       ;
   run;
 
@@ -420,8 +429,8 @@ run;
 proc means data=nchsdb_harmonized;
 VAR   nsrr_age
       nsrr_bmi
- 	  nsrr_bp_systolic
-	  nsrr_bp_diastolic;
+    nsrr_bp_systolic
+    nsrr_bp_diastolic;
 run;
 
 /* Checking categorical variables */
@@ -429,9 +438,9 @@ run;
 
 proc freq data=nchsdb_harmonized;
 table   nsrr_age_gt89
-   		nsrr_sex
-   		nsrr_race
-    	nsrr_ethnicity;
+      nsrr_sex
+      nsrr_race
+      nsrr_ethnicity;
 run;
 
 /* checking
