@@ -1,7 +1,6 @@
 {
   "id": "bmi",
   "display_name": "Body mass index (BMI)",
-  "description": "",
-  "type": "numeric",
-  "commonly_used": true
+  "description": "The NSRR team extracted values from the MEASUREMENT.CSV file and kept the value closest to the time of the sleep study. Reference: :bmi_offset:",
+  "type": "numeric"
 }

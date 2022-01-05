@@ -1,6 +1,6 @@
 {
   "id": "birth_date",
-  "display_name": "Shifted date of birth",
-  "description": "",
+  "display_name": "Date of birth",
+  "description": "For each :STUDY_PAT_ID:, a random date shift of +/- 180 days was chosen, and all identified patient data that are linked to the :STUDY_PAT_ID: (i.e. from EHR and Natus) were adjusted.",
   "type": "date"
 }

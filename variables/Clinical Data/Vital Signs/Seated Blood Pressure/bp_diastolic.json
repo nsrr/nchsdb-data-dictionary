@@ -1,8 +1,7 @@
 {
   "id": "bp_diastolic",
   "display_name": "Single measure of seated diastolic blood pressure closest to the sleep test",
-  "description": "",
+  "description": "The NSRR team extracted values from the MEASUREMENT.CSV file and kept the value closest to the time of the sleep study. Reference: :bp_offset:",
   "type": "numeric",
-  "units": "millimeters of mercury",
-  "commonly_used": true
+  "units": "millimeters of mercury"
 }

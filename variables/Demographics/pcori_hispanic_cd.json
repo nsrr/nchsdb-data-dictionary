@@ -1,6 +1,6 @@
 {
   "id": "pcori_hispanic_cd",
-  "display_name": "Patient Hispanic ethnicity",
+  "display_name": "Patient is of Hispanic ethnicity",
   "description": "A person of Cuban, Mexican, Puerto Rican, South or Central American, or other Spanish culture or origin, regardless of race.",
   "type": "choices",
   "domain": "pcori_hispanic"

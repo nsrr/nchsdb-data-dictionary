@@ -1,8 +1,7 @@
 {
   "id": "bmi_offset",
   "display_name": "Difference between date of body mass index (BMI) measurement and sleep test",
-  "description": "",
+  "description": "Derived using dates from the MEASUREMENT.CSV and SLEEP_STUDY.CSV data files.",
   "type": "numeric",
-  "units": "days",
-  "commonly_used": true
+  "units": "days"
 }
