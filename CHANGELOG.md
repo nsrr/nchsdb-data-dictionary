@@ -1,3 +1,5 @@
+## 0.1.1
+
 ## 0.1.0 (January 6, 2022)
 
 - Incorporate DEMOGRAPHIC.CSV data to make basic demographic variables available
