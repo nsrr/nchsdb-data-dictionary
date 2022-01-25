@@ -22,7 +22,7 @@
   libname nchsdba "\\rfawin\BWH-SLEEPEPI-NSRR-STAGING\20210809-nchsdb\nsrr-prep\_archive";
 
   *set data dictionary version;
-  %let version = 0.1.0;
+  %let version = 0.2.0.pre;
 
   *set nsrr csv release path;
   %let releasepath = \\rfawin\BWH-SLEEPEPI-NSRR-STAGING\20210809-nchsdb\nsrr-prep\_releases;
@@ -367,7 +367,7 @@
     format nsrr_sex $10.;
     if pcori_gender_cd = 'F' then nsrr_sex = 'female';
     else if pcori_gender_cd = 'M' then nsrr_sex = 'male';
-    else if pcori_gender_cd = 'UN' then nsrr_sex = 'unknown';
+    else if pcori_gender_cd = 'UN' then nsrr_sex = 'not reported';
 
     *race;
     *use pcori_race_cd;
