@@ -364,7 +364,7 @@
 
     *sex;
     *use pcori_gender_cd;
-    format nsrr_sex $10.;
+    format nsrr_sex $15.;
     if pcori_gender_cd = 'F' then nsrr_sex = 'female';
     else if pcori_gender_cd = 'M' then nsrr_sex = 'male';
     else if pcori_gender_cd = 'UN' then nsrr_sex = 'not reported';
