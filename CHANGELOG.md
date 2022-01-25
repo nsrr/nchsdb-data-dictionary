@@ -1,5 +1,8 @@
 ## 0.1.1
 
+- Fix 'nsrr_sex' domain
+- Fix source variable references for harmonized BP terms
+
 ## 0.1.0 (January 6, 2022)
 
 - Incorporate DEMOGRAPHIC.CSV data to make basic demographic variables available
