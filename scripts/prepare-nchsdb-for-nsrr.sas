@@ -360,11 +360,15 @@
   run;
 
   data nchsdb_nsrr;
+    length study_pat_id sleep_study_id 8. filename_id $20.;
     merge
       demographic
       nchsdb_nsrr_in
       ;
     by study_pat_id;
+
+    *create filename indicator;
+    filename_id = compress(put(study_pat_id,8.)) || "_" || compress(put(sleep_study_id,8.));
 
     *create encounter variable for Spout to use for graph generation;
     retain encounter;
@@ -386,9 +390,6 @@
 
   data nchsdb_harmonized;
     set nchsdb_nsrr;
-
-    *create filename indicator;
-    nsrr_filename = compress(put(study_pat_id,8.)) || "_" || compress(put(sleep_study_id,8.));
 
     *demographics;
     *age;
@@ -456,8 +457,8 @@
     keep
       study_pat_id
       sleep_study_id
+      filename_id
       encounter
-      nsrr_filename
       nsrr_age 
       nsrr_age_gt89
       nsrr_sex 
