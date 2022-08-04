@@ -1,3 +1,9 @@
+## 0.3.0
+
+- Alter dataset to allow for multiple sleep study encounters
+- The CSV datasets generated from a SAS export are located here:
+  - `\\rfawin\BWH-SLEEPEPI-NSRR-STAGING\20210809-nchsdb\nsrr-prep\_releases\0.3.0.pre\`
+
 ## 0.2.0 (January 25, 2022)
 
 - Fix 'nsrr_sex' domain

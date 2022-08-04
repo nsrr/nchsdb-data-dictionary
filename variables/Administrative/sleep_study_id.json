@@ -1,0 +1,7 @@
+{
+  "id": "sleep_study_id",
+  "display_name": "NCHSDB Sleep Study ID",
+  "description": "Pseudo identifier for each unique sleep study",
+  "type": "identifier",
+  "commonly_used": true
+}

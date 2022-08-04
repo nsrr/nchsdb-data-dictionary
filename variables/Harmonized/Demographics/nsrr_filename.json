@@ -1,0 +1,7 @@
+{
+  "id": "nsrr_filename",
+  "display_name": "Filename to match with sleep study data",
+  "description": "Combination of :study_pat_id: and :sleep_study_id:",
+  "type": "text",
+  "commonly_used": true
+}

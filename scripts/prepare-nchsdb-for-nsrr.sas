@@ -22,7 +22,7 @@
   libname nchsdba "\\rfawin\BWH-SLEEPEPI-NSRR-STAGING\20210809-nchsdb\nsrr-prep\_archive";
 
   *set data dictionary version;
-  %let version = 0.2.0;
+  %let version = 0.3.0.pre;
 
   *set nsrr csv release path;
   %let releasepath = \\rfawin\BWH-SLEEPEPI-NSRR-STAGING\20210809-nchsdb\nsrr-prep\_releases;
@@ -57,16 +57,17 @@
 
     keep
       STUDY_PAT_ID
+      SLEEP_STUDY_ID
       AGE_AT_SLEEP_STUDY_DAYS
       ;
   run;
 
   proc sort data=sleep_study;
-    by STUDY_PAT_ID AGE_AT_SLEEP_STUDY_DAYS;
+    by STUDY_PAT_ID SLEEP_STUDY_ID AGE_AT_SLEEP_STUDY_DAYS;
   run;
 
   proc sort data=sleep_study nodupkey;
-    by STUDY_PAT_ID;
+    by STUDY_PAT_ID SLEEP_STUDY_ID;
   run;
 
   proc import datafile="\\rfawin\BWH-SLEEPEPI-NSRR-STAGING\20210809-nchsdb\nsrr-prep\_source\MEASUREMENT.CSV"
@@ -151,39 +152,47 @@
 
   *making merge dataset of study id and sleep start;
   *bmi;
-    data measurement_bmi_sleep;
-      merge
-        measurement_bmi
-        sleep_study_in
-        ;
-      by STUDY_PAT_ID;
+  proc sql;
+    create table measurement_bmi_sleep_in as
+    select * from measurement_bmi a full join sleep_study_in b
+    on a.STUDY_PAT_ID = b.STUDY_PAT_ID;
+  quit;
 
-      *compute the day offset between sleep study date and date of measurement;
-      bmi_offset_sort = abs(MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME);
-      bmi_offset_sec = MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME;
-      bmi_offset_min = bmi_offset_sec/60;
-      bmi_offset_hour = bmi_offset_min/60;
-      bmi_offset_days = bmi_offset_hour/24;
-      bmi_offset = bmi_offset_days;
+  data measurement_bmi_sleep;
+    set measurement_bmi_sleep_in;
 
-      keep
-        STUDY_PAT_ID
-        BMI
-        MEAS_RECORDED_DATETIME
-        SLEEP_STUDY_START_DATETIME
-        MEAS_SOURCE
-        bmi_offset_sort
-        bmi_offset
-        ;
-    run;
+    *compute the day offset between sleep study date and date of measurement;
+    bmi_offset_sort = abs(MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME);
+    bmi_offset_sec = MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME;
+    bmi_offset_min = bmi_offset_sec/60;
+    bmi_offset_hour = bmi_offset_min/60;
+    bmi_offset_days = bmi_offset_hour/24;
+    bmi_offset = bmi_offset_days;
+
+    *remove sleep studies without BMI;
+    if BMI = . then delete;
+
+    keep
+      STUDY_PAT_ID
+      SLEEP_STUDY_ID
+      BMI
+      MEAS_RECORDED_DATETIME
+      SLEEP_STUDY_START_DATETIME
+      MEAS_SOURCE
+      bmi_offset_sort
+      bmi_offset
+      ;
+  run;
 
   *bmipct;
+  proc sql;
+    create table measurement_bmipct_sleep_in as
+    select * from measurement_bmipct a full join sleep_study_in b
+    on a.STUDY_PAT_ID = b.STUDY_PAT_ID;
+  quit;
+
   data measurement_bmipct_sleep;
-    merge
-      measurement_bmipct
-      sleep_study_in
-      ;
-    by STUDY_PAT_ID;
+    set measurement_bmipct_sleep_in;
 
     bmipct_offset_sort = abs(MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME);
     bmipct_offset_sec = MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME;
@@ -192,8 +201,12 @@
     bmipct_offset_days = bmipct_offset_hour/24;
     bmipct_offset = bmipct_offset_days;
 
+    *remove sleep studies without BMIPCT;
+    if BMIPCT = . then delete;
+
     keep
       STUDY_PAT_ID
+      SLEEP_STUDY_ID
       BMIPCT
       MEAS_RECORDED_DATETIME
       SLEEP_STUDY_START_DATETIME
@@ -204,12 +217,14 @@
   run;
 
   *bp;
+  proc sql;
+    create table measurement_bp_sleep_in as
+    select * from measurement_bp_sep a full join sleep_study_in b
+    on a.STUDY_PAT_ID = b.STUDY_PAT_ID;
+  quit;
+
   data measurement_bp_sleep;
-    merge
-      measurement_bp_sep
-      sleep_study_in
-      ;
-    by STUDY_PAT_ID;
+    set measurement_bp_sleep_in;
 
     bp_offset_sort = abs(MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME);
     bp_offset_sec = MEAS_RECORDED_DATETIME - SLEEP_STUDY_START_DATETIME;
@@ -218,8 +233,12 @@
     bp_offset_days = bp_offset_hour/24;
     bp_offset = bp_offset_days;
 
+    *remove sleep studies without BP;
+    if BP = '' or bp_systolic = 0 or bp_diastolic = 0 then delete;
+
     keep
       STUDY_PAT_ID
+      SLEEP_STUDY_ID
       bp_systolic
       bp_diastolic
       MEAS_RECORDED_DATETIME
@@ -233,17 +252,17 @@
   *sort to select measure for each individual with smallest date offset from sleep study date;
   *bmi;
   proc sort data=measurement_bmi_sleep;
-    by STUDY_PAT_ID bmi_offset_sort;
+    by SLEEP_STUDY_ID bmi_offset_sort;
   run;
 
   *bmipct;
   proc sort data=measurement_bmipct_sleep;
-    by STUDY_PAT_ID bmipct_offset_sort;
+    by SLEEP_STUDY_ID bmipct_offset_sort;
   run;
 
   *bp;
   proc sort data=measurement_bp_sleep;
-    by STUDY_PAT_ID bp_offset_sort;
+    by SLEEP_STUDY_ID bp_offset_sort;
   run;
 
   /* checking
@@ -261,24 +280,24 @@
   *bmi;
   data measurement_bmi_sleep_subset;
     set measurement_bmi_sleep;
-    by STUDY_PAT_ID;
-    if first.STUDY_PAT_ID then output;
+    by SLEEP_STUDY_ID;
+    if first.SLEEP_STUDY_ID then output;
     drop bmi_offset_sort;
   run;
 
   *bmipct;
   data measurement_bmipct_sleep_subset;
     set measurement_bmipct_sleep;
-    by STUDY_PAT_ID;
-    if first.STUDY_PAT_ID then output;
+    by SLEEP_STUDY_ID;
+    if first.SLEEP_STUDY_ID then output;
     drop bmipct_offset_sort;
   run;
 
   *bp;
   data measurement_bp_sleep_subset;
     set measurement_bp_sleep;
-    by STUDY_PAT_ID;
-    if first.STUDY_PAT_ID then output;
+    by SLEEP_STUDY_ID;
+    if first.SLEEP_STUDY_ID then output;
     drop bp_offset_sort;
   run;
 
@@ -303,10 +322,11 @@
       measurement_bmipct_sleep_subset
       measurement_bp_sleep_subset
       ;
-    by STUDY_PAT_ID;
+    by SLEEP_STUDY_ID;
 
     keep
       STUDY_PAT_ID
+      SLEEP_STUDY_ID
       BMI
       bmi_offset
       BMIPCT
@@ -317,38 +337,58 @@
     ;
   run;
 
+  proc sort data=measurement_new;
+    by STUDY_PAT_ID SLEEP_STUDY_ID;
+  run;
+
   /*
   proc print data=measurement_new(obs=10) label;
   run;
   */
 
   *merge these into the 'nchsdb_nsrr' dataset;
+  data nchsdb_nsrr_in;
+    merge
+      sleep_study
+      measurement_new
+      ;
+    by study_pat_id sleep_study_id;
+  run;
+
+  proc sort data=nchsdb_nsrr_in;
+    by study_pat_id age_at_sleep_study_days;
+  run;
+
   data nchsdb_nsrr;
     merge
       demographic
-      sleep_study
-      measurement_new
+      nchsdb_nsrr_in
       ;
     by study_pat_id;
 
     *create encounter variable for Spout to use for graph generation;
-    encounter = 1;
+    retain encounter;
+    if first.study_pat_id then encounter = 1;
+    else encounter = encounter + 1;
   run;
+
+  /*
+
+  proc freq data=nchsdb_nsrr;
+    table encounter;
+  run;
+
+  */
 
 *******************************************************************************;
 * create harmonized dataset ;
 *******************************************************************************;
 
   data nchsdb_harmonized;
-    merge
-      demographic
-      sleep_study
-      measurement_new
-      ;
-    by STUDY_PAT_ID;
+    set nchsdb_nsrr;
 
-    *create encounter variable for Spout to use for graph generation;
-    encounter = 1;
+    *create filename indicator;
+    nsrr_filename = compress(put(study_pat_id,8.)) || "_" || compress(put(sleep_study_id,8.));
 
     *demographics;
     *age;
@@ -415,7 +455,9 @@
     *none;
     keep
       study_pat_id
+      sleep_study_id
       encounter
+      nsrr_filename
       nsrr_age 
       nsrr_age_gt89
       nsrr_sex 

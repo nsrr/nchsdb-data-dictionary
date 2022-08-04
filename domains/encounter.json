@@ -3,5 +3,25 @@
     "value": "1",
     "display_name": "First overnight sleep study",
     "description": ""
+  },
+  {
+    "value": "2",
+    "display_name": "Second overnight sleep study",
+    "description": ""
+  },
+  {
+    "value": "3",
+    "display_name": "Third overnight sleep study",
+    "description": ""
+  },
+  {
+    "value": "4",
+    "display_name": "Fourth overnight sleep study",
+    "description": ""
+  },
+  {
+    "value": "5",
+    "display_name": "Fifth overnight sleep study",
+    "description": ""
   }
 ]

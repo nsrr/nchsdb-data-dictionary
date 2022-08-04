@@ -1,7 +1,7 @@
 NCHSDB Data Dictionary
 ======================
 
-[![Build Status](https://travis-ci.com/nsrr/nchsdb-data-dictionary.svg?branch=master)](https://travis-ci.com/nsrr/nchsdb-data-dictionary)
+[![Build Status](https://app.travis-ci.com/nsrr/nchsdb-data-dictionary.svg?branch=master)](https://app.travis-ci.com/nsrr/nchsdb-data-dictionary)
 
 ### Exports
 
