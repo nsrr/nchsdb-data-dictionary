@@ -1,8 +1,9 @@
-## 0.3.0
+## 0.3.0 (August 10, 2022)
 
 - Alter dataset to allow for multiple sleep study encounters
+- Update method to choose closest measurements to each sleep study encounter
 - The CSV datasets generated from a SAS export are located here:
-  - `\\rfawin\BWH-SLEEPEPI-NSRR-STAGING\20210809-nchsdb\nsrr-prep\_releases\0.3.0.pre\`
+  - `\\rfawin\BWH-SLEEPEPI-NSRR-STAGING\20210809-nchsdb\nsrr-prep\_releases\0.3.0\`
 
 ## 0.2.0 (January 25, 2022)
 

@@ -22,7 +22,7 @@
   libname nchsdba "\\rfawin\BWH-SLEEPEPI-NSRR-STAGING\20210809-nchsdb\nsrr-prep\_archive";
 
   *set data dictionary version;
-  %let version = 0.3.0.pre;
+  %let version = 0.3.0;
 
   *set nsrr csv release path;
   %let releasepath = \\rfawin\BWH-SLEEPEPI-NSRR-STAGING\20210809-nchsdb\nsrr-prep\_releases;
