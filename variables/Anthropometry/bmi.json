@@ -2,5 +2,6 @@
   "id": "bmi",
   "display_name": "Body mass index (BMI)",
   "description": "The NSRR team extracted values from the MEASUREMENT.CSV file and kept the value closest to the time of the sleep study. Reference: :bmi_offset:",
-  "type": "numeric"
+  "type": "numeric",
+  "units":"kilograms per meter squared (kg/m2)"
 }
