@@ -1,0 +1,19 @@
+{
+  "_captured_at": "2026-06-13T17:42:05.960230Z",
+  "_captured_run_id": "r_019ec2105cab719395b37d2894e149a8",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "NOTE: Wrote measurement_bp (4 rows",
+    "NOTE: Wrote measurement_bp_sep",
+    "NOTE: PROC PRINT completed: 4 observations printed"
+  ],
+  "log_does_not_contain": [
+    "ERROR:",
+    "[JENNER-ERROR"
+  ],
+  "diagnostics": {
+    "parse_warnings": [],
+    "runtime_warnings": []
+  }
+}

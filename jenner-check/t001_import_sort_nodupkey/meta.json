@@ -1,0 +1,8 @@
+{
+  "bundle": "t001_import_sort_nodupkey",
+  "source_file": "scripts/prepare-nchsdb-for-nsrr.sas",
+  "source_blob_sha": "464434e6c16ddd2db1fd61017ddc25f948bc37e5",
+  "source_commit": "6b2ac41f596c79b2fb690ff24eba5bce61d00f77",
+  "tier": "real_data",
+  "notes": "Study-level ingest stage: KEEP of STUDY_PAT_ID/SLEEP_STUDY_ID/AGE_AT_SLEEP_STUDY_DAYS, ascending PROC SORT, then PROC SORT NODUPKEY to one row per (patient, sleep study). PROC IMPORT of SLEEP_STUDY.CSV from a shared drive replaced by an inline sample with the same columns; sort/keep/nodupkey logic unchanged. Sample includes an intentional duplicate (3,103) so NODUPKEY is exercised."
+}

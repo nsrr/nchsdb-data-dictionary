@@ -1,0 +1,8 @@
+{
+  "bundle": "t003_sql_fulljoin_offset",
+  "source_file": "scripts/prepare-nchsdb-for-nsrr.sas",
+  "source_blob_sha": "464434e6c16ddd2db1fd61017ddc25f948bc37e5",
+  "source_commit": "6b2ac41f596c79b2fb690ff24eba5bce61d00f77",
+  "tier": "real_data",
+  "notes": "Measurement-to-study linkage stage: PROC SQL FULL JOIN of the BMI measurements to the sleep studies by STUDY_PAT_ID, then a DATA step computing the datetime offset between each measurement and the sleep study (abs of the difference scaled to seconds/minutes/hours/days) and dropping rows with missing BMI. Both source tables built inline; the join and offset arithmetic are unchanged."
+}

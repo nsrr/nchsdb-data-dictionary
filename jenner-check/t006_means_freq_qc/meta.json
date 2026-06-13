@@ -1,0 +1,8 @@
+{
+  "bundle": "t006_means_freq_qc",
+  "source_file": "scripts/prepare-nchsdb-for-nsrr.sas",
+  "source_blob_sha": "464434e6c16ddd2db1fd61017ddc25f948bc37e5",
+  "source_commit": "6b2ac41f596c79b2fb690ff24eba5bce61d00f77",
+  "tier": "real_data",
+  "notes": "Quality-check stage: PROC MEANS over the continuous NSRR variables (nsrr_age, nsrr_bmi, nsrr_bp_systolic, nsrr_bp_diastolic) to scan for extreme values, and PROC FREQ over the categorical ones (nsrr_age_gt89, nsrr_sex, nsrr_race, nsrr_ethnicity). A small harmonized sample built inline; the MEANS VAR list and FREQ TABLE list are unchanged."
+}

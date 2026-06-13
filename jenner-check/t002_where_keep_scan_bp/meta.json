@@ -1,0 +1,8 @@
+{
+  "bundle": "t002_where_keep_scan_bp",
+  "source_file": "scripts/prepare-nchsdb-for-nsrr.sas",
+  "source_blob_sha": "464434e6c16ddd2db1fd61017ddc25f948bc37e5",
+  "source_commit": "6b2ac41f596c79b2fb690ff24eba5bce61d00f77",
+  "tier": "real_data",
+  "notes": "MEASUREMENT parsing stage: WHERE MEAS_TYPE in (BMI/BMIPCT/BP) splits the long file into three subsets with KEEP, then SCAN(BP,1,'/') / SCAN(BP,2,'/') separates the systolic/diastolic text field. PROC IMPORT of MEASUREMENT.CSV replaced by an inline sample with the same columns; the WHERE/KEEP/SCAN logic is unchanged."
+}

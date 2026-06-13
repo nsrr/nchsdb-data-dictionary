@@ -1,0 +1,8 @@
+{
+  "bundle": "t005_harmonize_recode",
+  "source_file": "scripts/prepare-nchsdb-for-nsrr.sas",
+  "source_blob_sha": "464434e6c16ddd2db1fd61017ddc25f948bc37e5",
+  "source_commit": "6b2ac41f596c79b2fb690ff24eba5bce61d00f77",
+  "tier": "real_data",
+  "notes": "Harmonization stage: derives the NSRR harmonized variables (nsrr_age, nsrr_age_gt89, nsrr_sex, nsrr_race, nsrr_ethnicity, nsrr_bmi, nsrr_bmipct, nsrr_bp_systolic, nsrr_bp_diastolic) by recoding PCORI gender/race/hispanic codes to human-readable labels and dividing age-in-days by 365.25. The nchsdb_nsrr input built inline (one row tuned to 90+ years so the age_gt89 branch is exercised); the recode logic, FORMAT statements, and KEEP list are unchanged."
+}
