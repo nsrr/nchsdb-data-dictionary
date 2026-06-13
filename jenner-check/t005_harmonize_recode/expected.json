@@ -1,0 +1,18 @@
+{
+  "_captured_at": "2026-06-13T17:42:06.318348Z",
+  "_captured_run_id": "r_019ec210ce1c7a31a1478f5286da5fb3",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "NOTE: Wrote nchsdb_harmonized (6 rows",
+    "NOTE: PROC PRINT completed: 6 observations printed"
+  ],
+  "log_does_not_contain": [
+    "ERROR:",
+    "[JENNER-ERROR"
+  ],
+  "diagnostics": {
+    "parse_warnings": [],
+    "runtime_warnings": []
+  }
+}

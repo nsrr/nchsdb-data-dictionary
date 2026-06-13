@@ -1,0 +1,8 @@
+{
+  "bundle": "t004_merge_by_first",
+  "source_file": "scripts/prepare-nchsdb-for-nsrr.sas",
+  "source_blob_sha": "464434e6c16ddd2db1fd61017ddc25f948bc37e5",
+  "source_commit": "6b2ac41f596c79b2fb690ff24eba5bce61d00f77",
+  "tier": "real_data",
+  "notes": "Closest-measurement selection plus re-combine stage: BY-group processing keeps only FIRST.SLEEP_STUDY_ID of each offset-sorted subset (the measurement nearest the sleep study), then a three-way MERGE BY SLEEP_STUDY_ID re-joins the BMI, BMIPCT, and BP subsets. The three sorted inputs built inline; the FIRST. selection and MERGE BY logic are unchanged."
+}

@@ -1,0 +1,18 @@
+{
+  "_captured_at": "2026-06-13T17:42:06.081043Z",
+  "_captured_run_id": "r_019ec210aec67fb0940235e66dd9230b",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "NOTE: Wrote measurement_new (3 rows",
+    "NOTE: PROC PRINT completed: 3 observations printed"
+  ],
+  "log_does_not_contain": [
+    "ERROR:",
+    "[JENNER-ERROR"
+  ],
+  "diagnostics": {
+    "parse_warnings": [],
+    "runtime_warnings": []
+  }
+}

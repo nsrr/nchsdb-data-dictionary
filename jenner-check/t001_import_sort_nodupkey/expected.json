@@ -1,0 +1,19 @@
+{
+  "_captured_at": "2026-06-13T17:35:46.399321Z",
+  "_captured_run_id": "r_019ec20d661c7412b93abac2a7021595",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "NOTE: 1 duplicate observations were deleted.",
+    "NOTE: Wrote sleep_study (7 rows, 3 columns).",
+    "NOTE: PROC PRINT completed: 7 observations printed, 3 variables"
+  ],
+  "log_does_not_contain": [
+    "ERROR:",
+    "[JENNER-ERROR"
+  ],
+  "diagnostics": {
+    "parse_warnings": [],
+    "runtime_warnings": []
+  }
+}
